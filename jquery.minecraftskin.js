@@ -1,11 +1,15 @@
+/*  
+	Serverless 3D Minecraft Skin
+	by James Mortemore of http://www.frostcast.net
+	is licenced under a Creative Commons
+	Attribution-NonCommercial-ShareAlike 2.0 UK: England & Wales.
+	Based on minecraft skins in html5 canvas tags by Kent Rasmussen @ earthiverse.ath.cx
+	Permissions beyond the scope of this licence 
+	may be available at http://creativecommons.org/licenses/by-nc-sa/2.0/uk/.
+	Additional licence terms at https://raw.github.com/confuser/Ban-Management/master/banmanagement/licence.txt
+ */
 (function($) {
-	var pluginName = 'minecraftSkin';
-	/*
-		Server-less 3D Minecraft Skin by James Mortemore (confuserr)
-		Based on minecraft skins in html5 canvas tags by Kent Rasmussen @ earthiverse.ath.cx
-	*/
-		
-	
+	var pluginName = 'minecraftSkin';	
 
 	var methods = {
 		init: function(options) {
