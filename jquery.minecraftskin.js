@@ -21,19 +21,21 @@
                 if (!data){
                     var settings = {
 						'scale': 6,
-						'hat': true
+						'hat': true,
+						'draw' : 'model'
 					};
                     if(options) { $.extend(true, settings, options); }
-
-                    /*$this.data(pluginName, {
-                        target : $this,
-                        settings: settings
-                    });*/
                 }
 				
 				settings.username = $this.data('minecraft-username');
 				if($this.data('minecraft-scale'))
 					settings.scale = $this.data('minecraft-scale');
+				if($this.data('minecraft-draw'))
+					settings.draw = $this.data('minecraft-draw');
+					
+				// Check if valid drawing set
+				if(settings.draw != 'head' && settings.draw != 'model')
+					settings.draw = 'model';
 
 				// Request the data
 				methods.requestData('http://s3.amazonaws.com/MinecraftSkins/'+settings.username+'.png', $this, settings);
@@ -52,7 +54,10 @@
 			imgData = imgData.replace('application/octet-stream', 'image/png');
 			
 			// Draw the skin
-			methods.draw_model(canvas, scratch, settings.scale, settings.hat, $this, imgData);
+			if(settings.draw == 'model')
+				methods.draw_model(canvas, scratch, settings.scale, settings.hat, $this, imgData);
+			else if(settings.draw == 'head')
+				methods.draw_head(canvas, scratch, settings.scale, settings.hat, $this, imgData);
 		},
 		requestData: function(username, $this, settings) {
 			var result;
@@ -62,6 +67,62 @@
 				if (data.query.results.url)
 					methods.buildImage(data.query.results.url, $this, settings);
 			});				
+		},
+		draw_head: function(canvas, scratchCanv, scale, hat, $this, imgData) {	
+			//Draws an isometric model of the given minecraft username
+			var model = canvas.getContext('2d');
+			var scratch = scratchCanv.getContext('2d');
+
+			//Resize Scratch
+			scratchCanv.setAttribute('width', 64 * scale);
+			scratchCanv.setAttribute('height', 32 * scale);
+			scratchCanv.setAttribute('class', 'scratch');
+			
+			//Resize Isometric Area (Found by trial and error)
+			canvas.setAttribute('width', 20 * scale);
+			canvas.setAttribute('height', 17.6 * scale);
+			canvas.setAttribute('class', 'model');
+			
+			$this.append(canvas);
+			$this.append(scratchCanv);
+			
+			var skin = new Image();
+
+			skin.onload = function() {
+				scratch.drawImage(skin,0,0,64,32,0,0,64,32);
+				//Scale it
+				scale_image(scratch.getImageData(0,0,64,32), scratch, 0, 0, scale);
+				
+				//Head
+				//Head - Front
+				model.setTransform(1,-0.5,0,1.2,0,0);
+				model.drawImage(scratchCanv, 8*scale, 8*scale, 8*scale, 8*scale, 10*scale, 13/1.2*scale, 8*scale, 8*scale);
+				//Head - Right
+				model.setTransform(1,0.5,0,1.2,0,0);
+				model.drawImage(scratchCanv, 0, 8*scale, 8*scale, 8*scale, 2*scale, 3/1.2*scale, 8*scale, 8*scale);
+				//Head - Top
+				model.setTransform(-1,0.5,1,0.5,0,0);
+				model.scale(-1,1);
+				model.drawImage(scratchCanv, 8*scale, 0, 8*scale, 8*scale, -3*scale, 5*scale, 8*scale, 8*scale);
+				
+				if(hat == true) {
+					if(!is_one_color(scratch.getImageData(40*scale,8*scale,8*scale,8*scale))) {
+						//Hat
+						//Hat - Front
+						model.setTransform(1,-0.5,0,1.2,0,0);
+						model.drawImage(scratchCanv, 40*scale, 8*scale, 8*scale, 8*scale, 10*scale, 13/1.2*scale, 8*scale, 8*scale);
+						//Hat - Right
+						model.setTransform(1,0.5,0,1.2,0,0);
+						model.drawImage(scratchCanv, 32*scale, 8*scale, 8*scale, 8*scale, 2*scale, 3/1.2*scale, 8*scale, 8*scale);
+						//Hat - Top
+						model.setTransform(-1,0.5,1,0.5,0,0);
+						model.scale(-1,1);
+						model.drawImage(scratchCanv, 40*scale, 0, 8*scale, 8*scale, -3*scale, 5*scale, 8*scale, 8*scale);
+					}
+				}
+			}
+			
+			skin.src = imgData;
 		},
 		draw_model: function(canvas, scratchCanv, scale, hat, $this, imgData) {
 			//Draws an isometric model of the given minecraft username
