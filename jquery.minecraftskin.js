@@ -6,7 +6,6 @@
 	Based on minecraft skins in html5 canvas tags by Kent Rasmussen @ earthiverse.ath.cx
 	Permissions beyond the scope of this licence 
 	may be available at http://creativecommons.org/licenses/by-nc-sa/2.0/uk/.
-	Additional licence terms at https://raw.github.com/confuser/Ban-Management/master/banmanagement/licence.txt
  */
 (function($) {
 	var pluginName = 'minecraftSkin';	
