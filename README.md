@@ -11,7 +11,7 @@ Usage
 <script src="jquery.minecraftskin.js" type="text/javascript"></script>
 <script type="text/javascript">
     $(function() {
-        $(".mc-skin").minecraftSkin({scale: 6, hat: true);
+        $(".mc-skin").minecraftSkin({scale: 6, hat: true});
     });
 </script>
 <style>
