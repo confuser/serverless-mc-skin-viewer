@@ -1,5 +1,9 @@
 Requires no server side code to run. Uses YQL (Yahoo Query) to download the skin and create the 3D model all in the browser via canvas.
 
+bower
+-----
+bower install jquery.serverless-mc-skin-viewer --save
+
 Demo
 ----
 http://jamesmortemore.com/mcskinviewer/
