@@ -1,0 +1,26 @@
+{
+  "name": "jquery.serverless-mc-skin-viewer",
+  "version": "1.0.0",
+  "homepage": "https://github.com/confuser/serverless-mc-skin-viewer",
+  "authors": [
+    "James Mortemore <james.mortemore@clock.co.uk>"
+  ],
+  "description": "A client html5 minecraft skin viewer using YQL",
+  "main": "jquery.minecraftskin.js",
+  "keywords": [
+    "minecraft",
+    "skin",
+    "canvas",
+    "html5"
+  ],
+  "license": "ISC",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "demo.html",
+    "excanvas.js"
+  ]
+}
