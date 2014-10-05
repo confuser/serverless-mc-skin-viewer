@@ -91,7 +91,7 @@
     }
     , requestData: function(username, $this, settings) {
         var query = encodeURIComponent('SELECT * FROM data.uri WHERE url = "' + username + '"')
-          , yql = 'http://query.yahooapis.com/v1/public/yql?q=' + query + '&format=json&callback=?'
+          , yql = 'https://query.yahooapis.com/v1/public/yql?q=' + query + '&format=json&callback=?'
 
         $.getJSON(yql, function (data) {
           if (data.query.results.url) {
