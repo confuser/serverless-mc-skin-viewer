@@ -2,7 +2,7 @@ Requires no server side code to run. Uses YQL (Yahoo Query) to download the skin
 
 bower
 -----
-bower install jquery.serverless-mc-skin-viewer --save
+```bower install jquery.serverless-mc-skin-viewer --save```
 
 Demo
 ----
